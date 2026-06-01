@@ -37,6 +37,17 @@ Use the LLM reviewer to generate stronger search queries, then search for source
 python -m citation_agent examples\sample_article.txt --llm-review --with-sources
 ```
 
+Use an LLM matcher to score whether each candidate source actually supports the sentence:
+
+```powershell
+python -m citation_agent examples\sample_article.txt --llm-review --with-sources --match-sources
+```
+
+The matcher separates two confidence scores:
+
+- `citation_need_confidence`: how likely the sentence needs a citation
+- `source_match_confidence`: how well a candidate source supports that sentence
+
 Optional environment variables:
 
 ```powershell
@@ -63,6 +74,7 @@ If you see `Semantic Scholar ... HTTP 429`, Semantic Scholar is temporarily rate
 src/citation_agent/
   analyzer.py      # Core rule-based analysis
   cli.py           # Command-line interface
+  llm_matcher.py   # Optional OpenAI-based source matcher
   llm_reviewer.py  # Optional OpenAI-based reviewer
   source_finder.py # Semantic Scholar and Crossref lookup
   models.py        # Data models

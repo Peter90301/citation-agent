@@ -55,6 +55,21 @@ class CitationSuggestion:
 
 
 @dataclass(frozen=True)
+class SourceMatch:
+    source: SourceCandidate
+    supports_claim: bool
+    support_score: float
+    rationale: str
+    limitations: str
+
+
+@dataclass(frozen=True)
+class MatchedCitationSuggestion:
+    citation_suggestion: CitationSuggestion
+    matches: tuple[SourceMatch, ...]
+
+
+@dataclass(frozen=True)
 class LLMReview:
     needs_citation: bool
     confidence: float
